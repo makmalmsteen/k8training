@@ -30,3 +30,17 @@ EOF
 sudo apt-get update
 sudo apt-get install -y kubelet kubeadm kubectl
 sudo apt-mark hold kubelet kubeadm kubectl
+
+echo "**********************************"
+echo "copy the following line an execute it on the worker nodes"
+sudo kubeadm init --pod-network-cidr=10.244.0.0/16
+echo "**********************************"
+
+echo "setting up the local kubeconfig"
+mkdir -p $HOME/.kube
+sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+sudo chown $(id -u):$(id -g) $HOME/.kube/config
+
+echo "adding a network"
+kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/bc79dd1505b0c8681ece4de4c0d86c5cd2643275/Documentation/kube-flannel.yml
+
