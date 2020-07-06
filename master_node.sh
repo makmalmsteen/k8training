@@ -17,6 +17,10 @@ sudo apt-get update
 sudo apt-get install -y kubelet kubeadm kubectl
 sudo apt-mark hold kubelet kubeadm kubectl
 
+#https://www.ibm.com/support/knowledgecenter/en/SSCKRH_1.0.2/platform/r_software_requirements_fci_kubernetes.html
+echo "net.bridge.bridge-nf-call-iptables=1" | sudo tee -a /etc/sysctl.conf
+sudo sysctl -p
+
 echo "**********************************"
 echo "copy the following line an execute it on the worker nodes"
 sudo kubeadm init --pod-network-cidr=10.244.0.0/16
