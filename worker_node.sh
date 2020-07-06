@@ -17,5 +17,9 @@ sudo apt-get update
 sudo apt-get install -y kubelet kubeadm kubectl
 sudo apt-mark hold kubelet kubeadm kubectl
 
+#https://www.ibm.com/support/knowledgecenter/en/SSCKRH_1.0.2/platform/r_software_requirements_fci_kubernetes.html
+echo "net.bridge.bridge-nf-call-iptables=1" | sudo tee -a /etc/sysctl.conf
+sudo sysctl -p
+
 echo "*********************************"
 echo "Now copy the command that was generated in the master node to join this node to the network"
